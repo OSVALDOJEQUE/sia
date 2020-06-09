@@ -1,0 +1,38 @@
+
+
+ .link{
+  color: #6195e1;
+   font-size: 14px;
+   text-transform: initial;
+   font-weight: 500;
+  }
+
+
+a:hover {
+  color: #498beb;
+  
+}
+
+  .login-box{
+  	box-shadow: 0 5px 12px 0 rgba(0, 0, 0, 0.12);
+  	border:0;
+  }
+
+  .login-logo{
+  	max-width:250px;
+  }
+
+  .center{
+  	text-align:center;
+  }
+
+  .slide{
+    opacity: 0;
+    transition: opacity 0.8s;
+    -webkit-transition: 0.8s;
+  }
+
+  .error{ color: #e3342f;
+   font-size: 14px;
+   text-transform: initial;
+}
