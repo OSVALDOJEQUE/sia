@@ -83,9 +83,9 @@
                      <a class="nav-item nav-link " id="nav-resolvidas-tab" data-toggle="tab" href="#nav-resolvidas" role="tab" aria-controls="nav-resolvidas" aria-selected="false">Mensagens</a>      
                   </li>
 
-                 <!--    <li>
+                    <li>
                      <a class="nav-item nav-link" id="nav-users-tab" data-toggle="tab" href="#nav-users" role="tab" aria-controls="nav-users" aria-selected="true">Usuários</a>
-                  </li> -->
+                  </li>
                 </ul>
             </nav>
         </div>
@@ -234,7 +234,7 @@
                                 <th>Celular</th>
                                 <th>Nível</th>
                                 <th>Localização</th>
-                                <td>Data</td>
+                                <th>Data</th>
                                 <th width="5%"></th>
                                 <th width="5%"></th>
                                 <th width="5%"></th>

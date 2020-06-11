@@ -10,6 +10,7 @@ class AdminController extends Controller
 {
     public function home(){
 
+ 
     	$users = User::all();
 
     	$ocorrencias = ocorrencia::all();

@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\ocorrencia;
+ use GMaps;
 
 class OcorrenciaController extends Controller
 {
@@ -41,10 +42,25 @@ class OcorrenciaController extends Controller
      */
     public function show($id)
     {
-    	if(!$ocorrencia = ocorrencia::find($id))
-    		return view('errors.404');
+    $config = array();
 
-    	return view('admin.ocorrencias.show',compact('ocorrencia'));
+    $config['center'] = "-25.95059,32.60198";
+    $config['zoom'] = '13';
+    $config['map_height'] = '300px';
+    $config['scrollwell'] = false;
+    GMaps::initialize($config);
+
+    $marker['position'] = "-25.95059,32.60198";;
+    $marker['infowindow_content'] =  "-25.95059,32.60198";
+    GMaps::add_marker($marker);
+    $map = GMaps::create_map();
+
+
+    if(!$ocorrencia = ocorrencia::find($id))
+    	return view('errors.404');
+
+    return view('admin.ocorrencias.show',compact('ocorrencia','map'));
+    
     }
 
     public function estado($id,$estado)

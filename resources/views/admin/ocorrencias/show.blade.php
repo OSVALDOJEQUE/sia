@@ -67,6 +67,8 @@ element.style {
 }
 </style>
 
+{!!$map['js']!!}
+
 @endpush
 
 
@@ -83,14 +85,21 @@ element.style {
        <div class="col-lg-6 col-md-6 col-sm-8 col-xs-12">
         <label>{{$ocorrencia->nome_jornalista}}</label>
           <table>
-              <tr>
+        <!--       <tr>
               <td>Localização:</td>
               <td>{{$ocorrencia->localização}}</td>
-            </tr>
+            </tr> -->
             <tr>
               <td>Celular</td>
               <td>{{$ocorrencia->celular}}</td>
             </tr>
+
+
+            <tr>
+             <td>Nivel de risco:</td>
+              <td>{{$ocorrencia->nivel}}</td>
+            </tr>
+
           </table>
       </div>
 
@@ -103,10 +112,6 @@ element.style {
             </tr>
 
             <tr>
-             <td>Nivel de risco:</td>
-              <td>{{$ocorrencia->nivel}}</td>
-            </tr>
-            <tr>
               <td>Data: </td>
               <td>{{$ocorrencia->created_at->diffForHumans()}}</td>
             </tr>
@@ -116,10 +121,11 @@ element.style {
     </div>
 
     <div class="p-15">
-      {{$ocorrencia->descricao}}
+     {!!$map['html']!!}
     </div>          
     
-    <div class="p-15">   
+    <div class="p-15"> 
+      <label>Evidencias:</label> 
       <ul class="mailbox-attachments">    
         <li>
           <a href="" class="mailbox-attachment-icon" target="_blenk" title=""><i class="far fa-file-image"></i></a>
