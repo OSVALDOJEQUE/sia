@@ -45,7 +45,7 @@
 
      
      <div class="corpo">
-     	<div class="container" style="max-width: 50%;">
+     	<div class="container">
 	     	<div class="col-12" style="text-align: center">
 		     	<div class="card border">
 					<div class="card-header">

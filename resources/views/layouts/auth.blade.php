@@ -16,8 +16,8 @@
 <body class="slide" onload="document.body.style.opacity='1'">
     
    
-    <div class="col-lg-3 col-sm-6 col-xs-12" style="margin:150px auto 0 auto;">
-            <h1 class="center" style="color: #6d6d6d;">SIAJSR</h1>
+    <div class="col-lg-3 col-sm-6 col-xs-12" style="margin:100px auto 0 auto;">
+           <img src="{{asset('logo/logo-v.png')}}" class="logo-v">
         <div class="card login-box">
              @include('includes.alerts')
             <div class="card-body">

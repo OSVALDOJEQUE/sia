@@ -2,7 +2,7 @@
 
 
   function checkPermission($permissions){
-    $userAccess = getMyPermission(auth()->user()->permission);
+    $userAccess = getMyPermission(auth()->user()->category);
     foreach ($permissions as $key => $value) {
       if($value == $userAccess){
         return true;

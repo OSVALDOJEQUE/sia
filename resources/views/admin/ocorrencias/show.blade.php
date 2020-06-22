@@ -83,21 +83,19 @@ element.style {
     <div class="card-body">
       <div class="row">
        <div class="col-lg-6 col-md-6 col-sm-8 col-xs-12">
-        <label>{{$ocorrencia->nome_jornalista}}</label>
+        <label>{{$ocorrencia->jornalista}}</label>
           <table>
-        <!--       <tr>
-              <td>Localização:</td>
-              <td>{{$ocorrencia->localização}}</td>
-            </tr> -->
             <tr>
-              <td>Celular</td>
-              <td>{{$ocorrencia->celular}}</td>
+              <td><label>Nome:</label> {{$ocorrencia->nome}}</td>
+            </tr>
+            <tr>
+              <td><label>Celular:</label> {{$ocorrencia->celular}} </td>
             </tr>
 
 
             <tr>
-             <td>Nivel de risco:</td>
-              <td>{{$ocorrencia->nivel}}</td>
+             <td><label>Nivel de risco: </label>{{$ocorrencia->nivel}}</td>
+     
             </tr>
 
           </table>
@@ -107,13 +105,12 @@ element.style {
           <table>
           
             <tr>
-              <td>Estado: </td>
-              <td>{{$ocorrencia->estado}}</td>
+              <td> <label>Estado:</label> {{$ocorrencia->estado}} </td>
+              <td></td>
             </tr>
 
             <tr>
-              <td>Data: </td>
-              <td>{{$ocorrencia->created_at->diffForHumans()}}</td>
+              <td> <label> Data:</label> {{$ocorrencia->created_at->diffForHumans()}}</td>
             </tr>
       
           </table>
@@ -125,29 +122,18 @@ element.style {
     </div>          
     
     <div class="p-15"> 
-      <label>Evidencias:</label> 
-      <ul class="mailbox-attachments">    
-        <li>
-          <a href="" class="mailbox-attachment-icon" target="_blenk" title=""><i class="far fa-file-image"></i></a>
-            <div class="mailbox-attachment-info">
-              <span class="mailbox-attachment-size">
-                <span>{{number_format(256566/1024,'2')}} KB</span>
-                <a href="" class="btn btn-default btn-sm float-right"><i class="fas fa-cloud-download-alt"></i></a>
-              </span>
-            </div>
-          </li>
-      </ul>
+      <label>Evidencias:</label>
     </div>
 
-  </div>
+  < /div>
 
   <div class="card-footer">
       <a href="#"  data-toggle="modal" data-target="#encaminhar" class="btn btn-secondary btn-sm"><i class="fas fa-share"></i>
-                  Encaminhar
+                  Partilhar
       </a> 
 
           <a href="#"  data-toggle="dropdown" class="btn btn-secondary btn-sm dropdown-toggle"><i class="fas fa-check"></i>
-                  Marcar como
+                  Alocar Jurista
       </a>
 
       <ul class="dropdown-menu dropdown-menu-right" role="menu" aria-labelledbdy="dropdownMenu">

@@ -1,6 +1,6 @@
 
                            <!-- Inicio Modal para criar usuario -->
-              <div class="modal " id="newUser" aria-hidden="true" >
+              <div class="modal " id="createUser" aria-hidden="true" >
                 <div class="modal-dialog modal-dialog-centered">
                   <div class="modal-content">
                   
@@ -18,18 +18,20 @@
                           </button>
                        </div>
 
-                       <form  id="user_form">
-         
+                       <form  id="user_form" name="user_form">
+                           <input type="hidden" name="id" id="id" value="" >
                           <div class="form-group">
                               <label>Nome do usuario</label>
                               <div class="form-single ">
                                   <input type="text" name="name"  id="name" class="form-control" value="{{old('name')}}"  placeholder="Nome Completo" />
+                                   <span class="error">{{ $errors->first('name') }}</span> 
                               </div>
                           </div>
                           <div class="form-group">
                           <label>email</label>
                               <div class="form-single">
                                   <input type="email" name="email" id="email" value="{{old('email')}}" class="form-control" placeholder="Endereco Electronico" />
+                                   <span class="error">{{ $errors->first('email') }}</span> 
                               </div>
                           </div>
                           <div class="form-group">
@@ -43,6 +45,7 @@
                               <label>Confirmar Senha</label>
                               <div class="form-single">
                                   <input type="password"  name="confirm_password" id="confirm_password" class="form-control" placeholder="Senha" />
+                                   <span id='message' class="error"></span>
                               </div>
                         
                           </div>
@@ -50,14 +53,14 @@
                           <div class="form-group">
                               <label>Tipo de Usuário</label>
                               <div class="form-single">
-                                 <select  name="permission" class="form-control" id="permission">
-                                    <option   selected="" >Tipo de Usuário</option>
-                                    <option value="0">Administrador</option>
-                                    <option value="1">Nível distrital</option>
+                                 <select  name="category" class="form-control" id="category">
+                                   <option selected="" value="{{old('category')}}" >Tipo de Usuário</option>
+                                    <option value="1">Nível Central</option>
                                     <option value="2">Nível provincial</option>
-                                    <option value="3">Nível Central </option>
-                                    <option value="4">Jurista</option>   
+                                    <option value="3">Nível distrital</option>
+                                    <option value="4">Jurista</option> 
                                  </select>
+                                  <span class="error">{{ $errors->first('category') }}</span> 
                               </div>
                           </div>
                           
@@ -66,7 +69,7 @@
 
                             <button type="reset" class="btn btn-secondary btn-sm modelClose" data-dismiss="modal">Cancelar
                              </button>
-                            <button type="submit" class="btn btn-secondary btn-sm" id="btn-save">Salvar</button>
+                            <button type="submit" class="btn btn-secondary btn-sm" id="saveBtn" value="create" >Salvar</button>
                          
                            </div>
                           </form>
@@ -84,7 +87,7 @@
                   
                     <!--  Cabecalho Modal -->
                     <div class="modal-header">
-                      <h1>Emcaminhar Ocorrência</h1>
+                      <h1>Partilhar Ocorrência</h1>
                       <button type="button" class="close" data-dismiss="modal">&times;</button>
                     </div>
                     
@@ -99,21 +102,19 @@
                        <form  method="post" action="">
          
                           <div class="form-group">
-                              <label>Parecer</label>
+                              <label>Comentário</label>
                               <div class="form-single ">
-                                 <textarea name="parecer" id="parecer" class="form-control"  placeholder="parecer"></textarea>
+                                 <textarea name="parecer" id="parecer" class="form-control"  placeholder="Comentário"></textarea>
                               </div>
                           </div>
 
                           <div class="form-group">
-                              <label>Enviar Para</label>
+                              <label>Para</label>
                               <div class="form-single">
                                  <select  name="permission" class="form-control" id="permission">
-                                    <option   selected="" >Tipo de Usuário</option>
-                                    <option value="1">Nível distrital</option>
+                                    <option   selected=""></option>
                                     <option value="2">Nível provincial</option>
-                                    <option value="3">Nível Central </option>
-                                    <option value="4">Jurista</option>   
+                                    <option value="3">Nível distrital</option>
                                  </select>
                               </div>
                           </div>
@@ -144,7 +145,7 @@
           <div class="modal-content">
             <!-- Cabecalho Modal -->
             <div class="modal-header">
-                <label class="modal-title">Editar Usuário</label>
+                <h1 class="modal-title">Editar Usuário</h1>
                 <button type="button" class="close modelClose" data-dismiss="modal">&times;</button>
             </div>
             <!-- Corpo Modal-->
@@ -154,38 +155,66 @@
                         <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
-         
-                <div id="editUserBody">
-                    
-                </div>
-                <div class="form-group">
-                    <button type="button" class="btn btn-secondary btn-sm" id="submitEditUser">Actualizar</button>
-                <button type="button" class="btn btn-secondary btn-sm modelClose" data-dismiss="modal">Cancelar</button>
-            
-                
-                </div>
+
+
+                       <form  id="user_edit_form" name="user_edit_form" >
+                        <input type="hidden" name="id" id="e_id" value="" >
+                          <div class="form-group">
+                              <label>Nome do usuario</label>
+                              <div class="form-single ">
+                                  <input type="text" name="name"  id="e_name" class="form-control" value="{{old('e_name')}}"  placeholder="Nome Completo" />
+                                   <span class="error">{{ $errors->first('name') }}</span> 
+                              </div>
+                          </div>
+                          <div class="form-group">
+                          <label>email</label>
+                              <div class="form-single">
+                                  <input type="email" name="email" id="e_email" value="{{old('e_email')}}" class="form-control" placeholder="Endereco Electronico" />
+                                   <span class="error">{{ $errors->first('email') }}</span> 
+                              </div>
+                          </div>
+                          <div class="form-group">
+                          <label>Senha</label>
+                              <div class="form-single">
+                                  <input type="password"  name="password" id="e_password" class="form-control" placeholder="Senha" />
+                              </div>
+                          </div>
+
+                          <div class="form-group">
+                              <label>Confirmar Senha</label>
+                              <div class="form-single">
+                                  <input type="password"  name="confirm_password" id="e_confirm_password" class="form-control" placeholder="Senha" />
+                              </div>
+                        
+                          </div>
+
+                          <div class="form-group">
+                              <label>Tipo de Usuário</label>
+                              <div class="form-single">
+                                 <select  name="category" class="form-control" id="e_category">
+                                    <option selected="" value="{{old('category')}}">Tipo de Usuário</option>
+                                    <option value="1">Nível Central</option>
+                                    <option value="2">Nível provincial</option>
+                                    <option value="3">Nível distrital</option>
+                                    <option value="4">Jurista</option>   
+                                 </select>
+                                  <span class="error">{{ $errors->first('category') }}</span> 
+                              </div>
+                          </div>
+                          
+                      
+                          <div class="form-group">
+
+                            <button type="reset" class="btn btn-secondary btn-sm modelClose" data-dismiss="modal">Cancelar
+                             </button>
+                            <button type="submit" class="btn btn-secondary btn-sm" id="editBtn" value="update" >Salvar</button>
+                         
+                           </div>
+                          </form>
+              
             </div>
           
                 
         </div>
     </div>
 </div>
-
-<!-- Delete Product Modal -->
-<div class="modal" id="deleteUser" data-backdrop="static">
-    <div class="modal-dialog modal-dialog-centered">
-        <div class="modal-content">
-            <!-- Modal body -->
-            <div class="modal-body">
-                <label>Deseja remover este dado?</label>
-            </div>
-            <!-- Modal footer -->
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" id="submitDeleteUser">Sim</button>
-                <button type="button" class="btn btn-secondary" id="noDelete"  data-dismiss="modal">Não</button>
-            </div>
-        </div>
-    </div>
-</div>
-                    
-                   

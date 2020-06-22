@@ -7,7 +7,7 @@ use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Notifications\Messages\MailMessage;
 use Illuminate\Notifications\Notification;
 
-class ResetPassword extends Notification
+class RedefinirSenha extends Notification
 {
     use Queueable;
 
@@ -43,8 +43,8 @@ class ResetPassword extends Notification
     public function toMail($notifiable)
     {
          return (new MailMessage)->view(
-        'auth.email', ['data'=>$this->data]
-    );
+        'emails.Redefinicao', ['data'=>$this->data]
+    )->subject('Redefinição de Senha');
 
       
 }

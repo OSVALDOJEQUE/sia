@@ -8,10 +8,11 @@ use Auth;
 use Mail;
 use Hash;
 use Carbon\Carbon;
-use App\User;
+use App\Models\User;
 use DB;
 use Illuminate\Support\Str;
-use App\notifications\ResetPassword;
+use App\Notifications\RedefinirSenha;
+use Notification;
 
 class AuthController extends Controller
 {
@@ -36,14 +37,14 @@ class AuthController extends Controller
         ]);
 
         $fieldType = filter_var($request->email, FILTER_VALIDATE_EMAIL) ? 'email' : 'name';
-
+        
         $credentials=[ $fieldType=>$request->email,'password'=>$request->password]; 
     
         if(Auth::attempt($credentials)){
               return redirect()->intended('painelPrincipal');
              }
         else
-         return redirect()->back()->with('error','As credenciais informadas não correspondem com nossos registros.');
+         return redirect()->back()->with('error','As credenciais informadas não correspondem com nossos registos.');
 
     }
 
@@ -58,6 +59,8 @@ class AuthController extends Controller
         Request()->validate([
             'email' => 'required|email'
         ]);
+
+
 
      	$user = User::where('email',$request->email)->first();
 
@@ -80,7 +83,7 @@ class AuthController extends Controller
         ];
 
 
-         $user->notify(new ResetPassword($data));
+         Notification::send($user, new RedefinirSenha($data));
 
          return redirect()->back()->with(['success'=>'Enviamos um link para redefinir a sua senha por e-mail.']);
     }
@@ -113,6 +116,6 @@ class AuthController extends Controller
 
      	DB::table('password_resets')->where('email',$user->email)->delete();
 
-     	return redirect()->to('login')->whith(['success'=>'Sua senha foi redefinida!']);
+     	return redirect()->to('login')->with(['success'=>'Sua senha foi redefinida!']);
     }
 }

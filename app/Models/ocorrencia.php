@@ -6,17 +6,10 @@ use Illuminate\Database\Eloquent\Model;
 use App\Models\evidencia;
 use App\Models\cordenada;
 
-class ocorrencia extends Model
+class Ocorrencia extends Model
 {
     protected $fillable= [
-    	'nome_josrnalista','celular','descricao','nivel','cordenadas','estado'
+    	'nome','celular','descricao','nivel','latitude','longitude','img_URL','estado'
     ];
 
-    public function evidencias(){
-    	return $this->hasMany(evidencias::class);
-    }
-
-    public function cordenadas(){
-    	return $this->hasOne(cordenada::class);
-    }
 }

@@ -1,6 +1,6 @@
 <?php
 
-namespace App;
+namespace App\Models;
 
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
@@ -16,7 +16,7 @@ class User extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'name', 'email', 'password',
+        'name', 'email','category','password',
     ];
 
     /**
@@ -36,4 +36,25 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+
+    public function getCategory($category){
+        switch ($category) {
+            case '1':
+                return 'Nivel Central';
+                break;
+            
+            case '2':
+                 return 'Nivel Distrital';
+                break;
+
+             case '3':
+                 return 'Nivel Províncial';
+                break;
+
+             case '4':
+                 return 'Jurista';
+                break;
+        }
+    }
 }
