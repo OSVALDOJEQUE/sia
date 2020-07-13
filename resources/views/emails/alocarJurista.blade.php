@@ -1,6 +1,3 @@
-
-
-  
 <!DOCTYPE html>
 <html>
     <head>
@@ -9,9 +6,10 @@
         <!-- <title>@yield('title')-SIGAP</title> -->
         <link rel="stylesheet" type="text/css" href="//fonts.googleapis.com/css?family=Oswald"/>
         <link rel="stylesheet" type="text/css" href="//fonts.googleapis.com/css?family=Roboto"/>
-        <link rel="stylesheet" href="{{asset('css/bootstrap.css')}}">
+        <link rel="stylesheet" href="{{asset('css/email.css')}}">
+
         <style type="text/css">
-        	    footer{
+              footer{
     margin-top: 0.5%; 
     width: 100%;
     padding-top: 1%;
@@ -82,23 +80,21 @@
           }
 
         </style>
-
- 
-        
+   
     </head>
     <body>
 
       <div class="center">
         <h1> SAJ</h1>
-        <p> Redefinição de senha</p>
+        <p>Nova Ocorrência</p>
     </div>
     	<div class="col-8" style="margin:auto; max-width: 720px;">
     		<div class="card" style="padding: 15px  box-shadow: 0 5px 12px 0 rgba(0, 0, 0, 0.12); border:0;">
       			<div class="card-body">
-                <p>Caro(a) {{$data['name']}}.</p>
-      					<p>Está recebendo este e-mail porque recebemos o pedido de redefinição de senha para a sua conta. </p>
-                <a class="btn btn-secondary btn-sm" href="{{route('passwordREset',$data['token'])}}">Redifinir senha</a><br>
-                <p>Caso não solicitou uma alteração de senha, nenhuma acção adicional é necessaria</p>
+                <p>Caro(a) Jurista,</p>
+      					<p>Foi alocado a um caso no SAJ. Queira, por favor, aceder a sua conta, clicando <a class="btn btn-secondary btn-sm" href="{{route('login')}}">aqui.</a></p>
+                
+                <p></p>
       			</div>
       		</div>
  		</div>

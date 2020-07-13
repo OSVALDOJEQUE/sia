@@ -13,6 +13,8 @@
 
 <!-- Bootstrap============================================ -->
     <link rel="stylesheet" href="{{asset('css/bootstrap.css')}}">
+
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/7.2.0/sweetalert2.min.css">
     @stack('css')
    
 
@@ -30,12 +32,8 @@
               </a >
                <ul style="right:0;" class="dropdown-menu dropdown-menu-right" role="menu" aria-labelledbdy="dropdownMenu">
                   <li> <a href="{{route('perfil')}}" class="dropdown-item"> Perfil </a> </li>
-             
                   <li> <a href="{{route('sair')}}" class="dropdown-item">Sair </a> </li>
-              </ul>
-                    
-                  
-             
+              </ul>       
         </div>
         
      </div> 
@@ -68,6 +66,19 @@
     <!-- bootstrap js
   ============================================ -->
   <script src="{{asset('js/app.js')}}"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/7.2.0/sweetalert2.all.min.js"></script>
+  <script>
+
+      @if(Session::has('success'))
+         swal("{{ Session::get('success') }}", "Alerta", "success");
+      @endif
+
+       @if(Session::has('warning'))
+         swal("{{ Session::get('warning') }}", "Alerta", "warning");
+      @endif
+
+
+  </script>
   <script type="text/javascript">
     function back() {
        window.history.back();

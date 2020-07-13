@@ -1,6 +1,3 @@
-
-
-  
 <!DOCTYPE html>
 <html>
     <head>
@@ -89,7 +86,7 @@
 
       <div class="center">
         <h1> SAJ</h1>
-        <p> Ocorrência</p>
+        <p>Nova Ocorrência</p>
     </div>
     	<div class="col-8" style="margin:auto; max-width: 720px;">
     		<div class="card" style="padding: 15px  box-shadow: 0 5px 12px 0 rgba(0, 0, 0, 0.12); border:0;">

@@ -3,8 +3,12 @@
 
 route::group(['middleware'=>'auth'], function (){
     
-    route::group(['middleware'=>'check-permission:1'], function (){   
+    route::group(['middleware'=>'check-permission:0'], function (){   
         Route::resource('users','UserController');
+        Route::resource('jornalistas','JornalistaController');
+        Route::get('ocorrenciaExport','ExportController@ocorrencias')->name('ocorrencia.exportar');
+        Route::get('jornalistaExport','ExportController@jornalistas')->name('jornalista.exportar');
+        Route::get('estatisticaImprimir','ExportController@estatisticas')->name('estatistica.imprimir');
     });
 
 });
@@ -13,8 +17,7 @@ route::group(['middleware'=>'auth'], function (){
 
 //Routas gerais
     route::group(['middleware'=>'auth'], function (){
-    	
-        Route::get('/painelPrincipal',['middleware'=>'check-permission:1|2|3|4','uses'=>'OcorrenciaController@index'])->name('home');
+        Route::get('/painelPrincipal','OcorrenciaController@index')->name('home');
       
     });
 
@@ -24,10 +27,21 @@ Route::get('/', function () {
 });
 
 
-//Rotas de Ocorrencias
-    Route::get('/ocorrencias/{id}',['middleware'=>'auth','uses'=>'OcorrenciaController@show'])->name('ocorrencia.mostrar');
-    Route::get('/ocorrencias/{id}/{estado}',['middleware'=>'auth','uses'=>'OcorrenciaController@estado'])->name('ocorrencia.estado');
-    Route::post('/ocorrencias/{id}/remover','OcorrenciaController@destroy')->name('ocorrencia.remover');
+   //Rotas de Ocorrencias
+    Route::get('/ocorrencias/{id}/mostrar',['middleware'=>'auth','uses'=>'OcorrenciaController@show'])->name('ocorrencia.mostrar');
+    Route::get('/ocorrencias/estatisticas',['middleware'=>'auth','uses'=>'OcorrenciaController@estatisticas'])->name('ocorrencia.estatisticas');
+    Route::Delete('/ocorrencias/{id}','OcorrenciaController@destroy')->name('ocorrencia.remover');
+    Route::post('/partilharocorrência/{id}','OcorrenciaController@partilhar')->name('partilhar');
+    Route::post('/alocarjurista/{id}','OcorrenciaController@alocar')->name('alocar');
+    Route::post('/confirmarProvincia/{id}','OcorrenciaController@confirmarProvincia')->name('confirmarProvincia');
+    Route::get('/mensagens/{id}', 'OcorrenciaController@conversa')->name('chat');
+    Route::post('enviarmensagem/distrital/{id}', 'OcorrenciaController@enviarDistrital')->name('msg_distrital');
+    Route::post('enviarmensagem/provinvial/{id}', 'OcorrenciaController@enviarProvincial')->name('msg_provincial');
+    Route::post('enviarmensagem/jurista/{id}', 'OcorrenciaController@enviarJurista')->name('msg_jurista');
+    Route::post('enviarmensagem/central/{id}', 'OcorrenciaController@enviarCentral')->name('msg_central');
+    Route::get('/ocorrencias/{id}/{estado}/mudar',['middleware'=>'auth','uses'=>'OcorrenciaController@estado'])->name('ocorrencia.estado');
+
+
 
 
    // Rotas Auth
@@ -45,9 +59,6 @@ Route::get('/', function () {
 
     });
 
-
-// Rotas do Auth
-  
     Route::get('/login','AuthController@index')->name('login');
     Route::post('/login','AuthController@login')->name('login');
     Route::get('/senha/redefinir','AuthController@passwordEmail')->name('password.email');

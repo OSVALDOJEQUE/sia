@@ -5,7 +5,6 @@
 
 
 @section('content')
-@include('includes.alerts')
         <div class="row">
             <div class="col-md-10">
               <div class="card agent-box">
@@ -19,7 +18,7 @@
                    <dd>{{Auth::User()->email}}</dd>
                    
                    <dt>Nivel</dt>
-                   <dd>{{Auth::User()->getCategory(Auth::User()->category)}}</dd>
+                   <dd>{{Auth::User()->category}}</dd>
                   </dl>
 
 
@@ -79,7 +78,7 @@
 
                                       <div class="form-group">
                                           <div class="form-single">
-                                              <label> Senha</label>
+                                              <label>Nova senha</label>
                                               <input type="password" name="password" id="password" value="" class="form-control" placeholder="Senha">
                                          </div>
                                       </div>

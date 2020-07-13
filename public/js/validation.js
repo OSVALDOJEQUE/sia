@@ -81,6 +81,7 @@ $("#user_form").validate({
               $(form).trigger("reset");
               $('#createUser').modal('hide');
               table.draw();
+              swal("Salvo com sucesso", data.message, "success");
          
          
           },
@@ -177,6 +178,7 @@ $("#user_edit_form").validate({
               $(form).trigger("reset");
               $('#editUser').modal('hide');
               table.draw();
+             swal("Actualizado com sucesso", data.message, "success");
          
          
           },
@@ -326,6 +328,77 @@ $("#user_edit_form").validate({
   });
     
 }
+
+
+    $("#partilhar_form").validate({
+      
+    rules: {  
+     comentario:{
+       required:true,
+     },
+      permission:{
+        required:true,
+      },
+    },
+        
+    messages: {
+      permission:{
+        required:"Este campo é obrigatório",
+      },
+
+       comentario:{
+        required:"Este campo é obrigatório",
+      },
+
+    },
+
+  });
+
+  $("#alocar_form").validate({
+      
+    rules: {  
+     comentario:{
+       required:true,
+     },
+      jurista:{
+        required:true,
+      },
+    },
+        
+    messages: {
+      
+       comentario:{
+        required:"Este campo é obrigatório",
+      },
+
+        jurista:{
+        required:"Este campo é obrigatório",
+      },
+
+
+    },
+
+  });
+
+    $("#provincia_form").validate({
+      
+    rules: {  
+     provincia:{
+       required:true,
+     },
+   },
+         
+    messages: {
+
+        provincia:{
+        required:"Este campo é obrigatório",
+      },
+
+
+    },
+
+  });
+    
 
 //Confirmação do password
 

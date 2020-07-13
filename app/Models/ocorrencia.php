@@ -3,13 +3,39 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
-use App\Models\evidencia;
-use App\Models\cordenada;
+use App\Models\Jornalista;
+use App\Models\User;
+use App\Models\Provincia;
+
 
 class Ocorrencia extends Model
 {
     protected $fillable= [
-    	'nome','celular','descricao','nivel','latitude','longitude','img_URL','estado'
+    	'jornalista_id','provincia_id','nome','celular','descricao','nivel','latitude','longitude','provincia','img_URL','estado'
     ];
+
+    protected $casts=[
+        'provincial_encaminhado' =>'array',
+    ];
+
+
+    public function juristas(){
+
+    	return $this->belongsToMany(User::class);
+    }
+
+    public function provincia(){
+
+    	return $this->belongsTo(Provincia::class);
+    }
+
+     public function jornalista(){
+
+        return $this->belongsTo(Jornalista::class);
+    }
+
+    public function casos($nivel){
+      return $this->where('nivel',$nivel)->toSql();
+    }
 
 }

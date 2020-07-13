@@ -1,8 +1,8 @@
 @extends('layouts.app')
 
-@section('title','Gestão de usuários')
+@section('title','Gestão de jornalista')
 
-@section('titulo','Usuários')
+@section('titulo','Jornalistas')
 
 @push('css')
   <link rel="stylesheet" type="text/css" href="{{asset('plugins/datatables-bs4/css/dataTables.bootstrap4.min.css')}}">
@@ -19,21 +19,26 @@
         </div>
 
         <div class="card tab-content" id="tabContent">
-
+             <div style="float: right;">
+                <a style="float:right;" href="{{route('jornalista.exportar')}}" class="btn btn-secondary btn-sm" title="Exportar jornalistas">Exportar para Excel</a>
+              </div>
             <div class="tab-pane show active" id="nav-users" role="tabpainel" aria-labelledby="nav-users-tab" >
-                <div class="card-header">
-                    <a href="javascript:void(0)" class="btn btn-secondary btn-sm"  id="createNewUser" ><i class="fas fa-user-plus"> </i> Novo</a>                    
-                </div>
+             
                 <div class="card-body" >
                     <div class="table-responsive">
-                        <table class="table text-wrap table-hover table-striped" id="users">
+                        <table class="table text-wrap table-hover table-striped" id="jornalistas">
                             <thead>
                                 <th>Nome</th>
+                                <th>Celular</th>
                                 <th>Email</th>
-                                <th>Nivel</th>
-                                <th width="15%">Accão</th>
+                                <th>Estado</th>
+                                <th>Dispositivo</th>
+                                <th>Plataforma</th>
+                                <th>UUID</th>
+                                <th>versão</th>
+                                <th>Serie</th>
+                                <th width="100px">Accão</th>
                             </thead>
-
                             <tbody>
                                
                             </tbody>
@@ -46,7 +51,7 @@
             </div>
         </div>
 
-        @include('includes.modal-user')
+        @include('includes.modal-jornalista')
 @endsection
 
 

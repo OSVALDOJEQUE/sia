@@ -18,3 +18,7 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 });
 
 Route::POST('/enviarocorrencia', 'OcorrenciaController@store');
+
+Route::POST('/registarjornalisa', 'JornalistaController@store');
+
+Route::POST('/verificarjornalisa', 'JornalistaController@verifyMobile');

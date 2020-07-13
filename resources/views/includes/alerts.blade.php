@@ -8,7 +8,14 @@
     <div class="alert alert-danger">
         <p>{{ $message }}</p>
     </div>
+    @endif
+
+    @if ($message = Session::get('warning'))
+        <div class="alert alert-warinig">
+            <p>{{ $message }}</p>
+        </div>
     @endif 
+             
 
      @if ($messages = Session::get('errors'))
     <div class="alert alert-danger">

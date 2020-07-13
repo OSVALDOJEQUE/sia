@@ -22,8 +22,8 @@
 
   <div id="app">
      <div class="navbar">
-      <a href="{{route('home')}}"><img src="{{asset('logo/logo-H.png')}}" style="max-width: 250px;"></a>
-      <p/>
+      <a href="{{route('home')}}"><img src="{{asset('logo/logo-h.png')}}" class="logo-h"></a>
+      <br><br>
      
         <div class="direita" style="margin-bottom: 0;">
               <a href="{{route('home')}}" style="text-transform: capitalize;" ><i class="fas fa-fw fa-home"></i> Home</a>

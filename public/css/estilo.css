@@ -277,3 +277,35 @@ a {
   .logo-h{
     max-width: 200px;
   }
+
+    .enviada
+{
+  width:73%;
+  float:right;
+  margin-bottom:2%;
+  padding:0px;
+  background-color:#e8f6e3;
+  border:1px solid #ddd;
+}
+.recebida
+{
+  width:73%;
+  float:left;
+  margin-bottom:2%;
+  padding:0px;
+  background-color:#ccdde6;
+}
+ .p-10{
+  padding: 0.65rem;
+}
+
+.new
+{
+    width:100%;
+    padding-top: 6%;
+}
+
+.hora{
+  float: right;
+} 
+

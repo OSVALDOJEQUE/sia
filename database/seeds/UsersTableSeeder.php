@@ -15,28 +15,28 @@ class UsersTableSeeder extends Seeder
         User::create([
             'name'      => 'central',
             'email'     => 'central@gmail.com',
-            'category'  => '1',
+            'category'  => '0',
             'password'  =>bcrypt('123456'),
         ]);
 
          User::create([
-            'name'      => 'provincial',
-            'email'     => 'provincial@gmail.com',
-            'category'  => '2',
+            'name'      => 'Osvaldo Jeque',
+            'email'     => 'osvaldojeque@gmail.com',
+            'category'  => '1',
             'password'  =>bcrypt('123456'),
         ]);
 
           User::create([
-            'name'      => 'distrital',
-            'email'     => 'distrital@gmail.com',
-            'category'  => '3',
+            'name'      => 'Antonio Morais',
+            'email'     => 'spid404@gmail.com',
+            'category'  => '12',
             'password'  =>bcrypt('123456'),
         ]);
 
-                 User::create([
-            'name'      => 'jurista',
-            'email'     => 'jurista@gmail.com',
-            'category'  => '4',
+        User::create([
+            'name'      => 'Andrade Manjate',
+            'email'     => 'am.manjate@outlook.com',
+            'category'  => '12',
             'password'  =>bcrypt('123456'),
         ]);
     }
