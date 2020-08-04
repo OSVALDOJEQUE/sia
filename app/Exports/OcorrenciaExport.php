@@ -26,7 +26,7 @@ class OcorrenciaExport implements WithColumnFormatting,FromCollection,WithHeadin
             // Handle by a closure.
             AfterSheet::class => function(AfterSheet $event) use ($arrayStyle) {
 
-                $event->sheet->getStyle('A1:G1')->applyFromArray($arrayStyle);
+                $event->sheet->getStyle('A1:H1')->applyFromArray($arrayStyle);
             },
         ];
     }
@@ -43,13 +43,28 @@ class OcorrenciaExport implements WithColumnFormatting,FromCollection,WithHeadin
 
     public function map($ocorrencia): array
     {
+        if ($provincia =$ocorrencia->provincia)
+             $provincia = $ocorrencia->provincia->provincia;
+        else
+         $provincia ='Por Confirmar';
+
+        $juristas ='';
+        $dados = $ocorrencia->juristas;
+        if($dados->isEmpty())
+             $juristas = 'Por Alocar';
+        else
+          foreach ($dados as $dado) {
+            $juristas =$juristas.', '.$dado->name;
+          }
+
         return [
             $ocorrencia->id,
             $ocorrencia->nome,
             $ocorrencia->celular,
             $ocorrencia->descricao,
             $ocorrencia->nivel,
-            $ocorrencia->provincia->provincia,
+            $provincia,
+            $juristas,
             Date::dateTimeToExcel($ocorrencia->created_at),
         ];
     }
@@ -57,14 +72,14 @@ class OcorrenciaExport implements WithColumnFormatting,FromCollection,WithHeadin
     public function headings(): array
     {
         return [
-            '#','Nome','celular','Descrição','Violação','Província','Data',
+            '#','Nome','Telefone','Descrição','Tipo de Violação','Província','Jurista','Data',
         ];
     }
 
     public function columnFormats(): array
     {
         return [
-            'G' => NumberFormat::FORMAT_DATE_DDMMYYYY,
+            'H' => NumberFormat::FORMAT_DATE_DDMMYYYY,
         ];
     }
 }

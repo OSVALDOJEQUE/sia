@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Jornalista;
 use DataTables;
+use DB;
 
 
 class JornalistaController extends Controller
@@ -22,10 +23,16 @@ class JornalistaController extends Controller
             return Datatables::of($data)
                     ->addIndexColumn()
                     ->addColumn('action', function($row){
-   
-                           $btn = '<a href="javascript:void(0)" data-toggle="tooltip"  data-id="'.$row->id.'" title="Aprovar" class="aprovar"><i class="fas fa-check"></i></a>';
-   
-                           $btn = $btn.' <a href="javascript:void(0)" data-toggle="tooltip"  data-id="'.$row->id.'" title="Reprovar" class="btn btn-sm removerJornalista"><i class="far fa-trash-alt"> </i></a>';
+
+                        if ($row->estado =='Pendente'|| $row->estado =='Reprovado' )
+                            $btn ='<a href="javascript:void(0)" data-toggle="tooltip"  data-id="'.$row->id.'" title="Aprovar" class="aprovar"><i class="fas fa-check"></i></a>';
+                        else
+                           $btn ='';
+
+
+                        $btn =$btn.'<a href="javascript:void(0)" data-toggle="tooltip" data-id="'.$row->id.'" title="Editar" class="editJornalista"><i class="far fa-edit"></i></a>';
+                
+                           // $btn = $btn.' <a href="javascript:void(0)" data-toggle="tooltip"  data-id="'.$row->id.'" title="Reprovar" class="btn btn-sm removerJornalista"><i class="far fa-trash-alt"> </i></a>';
     
                             return $btn;
                     })
@@ -56,15 +63,17 @@ class JornalistaController extends Controller
     {
         $jornalista = new Jornalista();
         
-        $jornalista->nome = $request->name;
-        $jornalista->celular = $request->celular;
-        $jornalista->email = $request->email;
-        $jornalista->modelo=$request->modelo;
-        $jornalista->plataforma=$request->plataforma;
-        $jornalista->uuid=$request->uuid;
-        $jornalista->versao=$request->versao;
-        $jornalista->fabrico=$request->fabrico;
-        $jornalista->serie=$request->serie;
+        $jornalista->nome       = $request->name;
+        $jornalista->celular    = $request->celular;
+        $jornalista->email      = $request->email;
+        $jornalista->contacto   = $request->contacto;
+        $jornalista->entidade   = $request->entidade;
+        $jornalista->modelo     = $request->modelo;
+        $jornalista->plataforma = $request->plataforma;
+        $jornalista->uuid       = $request->uuid;
+        $jornalista->versao     =$request->versao;
+        $jornalista->fabrico    =$request->fabrico;
+        $jornalista->serie      =$request->serie;
         
         if ($jornalista->save())
             return 1;
@@ -91,7 +100,8 @@ class JornalistaController extends Controller
      */
     public function edit($id)
     {
-        //
+         $jornalista = Jornalista::find($id);
+        return response()->json($jornalista);
     }
 
     /**
@@ -103,6 +113,17 @@ class JornalistaController extends Controller
      */
     public function update(Request $request, $id)
     {
+        if ($request->nome) {
+            Jornalista::find($id)->update([
+                'nome'      =>  $request->nome,
+                'celular'   =>  $request->celular,
+                'email'     =>  $request->email,
+                'contacto'  =>  $request->contacto,
+                'entidade'  =>  $request->entidade
+            ]);
+
+         return response()->json(['success'=>'Actualizado com sucesso.']);
+        }  
         Jornalista::find($id)->update(['estado'=>'Aprovado']);
         return response()->json(['success'=>'Aprovado com sucesso.']);
     }
@@ -132,7 +153,7 @@ class JornalistaController extends Controller
                 if($jornalista->estado=='Aprovado') {
                     $resposta = 1;
                     break;
-                } elseif($jornalista->estado=='Reprovado') {
+                } elseif($jornalista->estado=='Pendente') {
                     $resposta = 2;
                     break;
                 }

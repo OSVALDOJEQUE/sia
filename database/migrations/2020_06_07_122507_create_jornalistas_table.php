@@ -18,7 +18,9 @@ class CreateJornalistasTable extends Migration
             $table->string('nome')->default('N/A');
             $table->string('celular');
             $table->string('email')->default('N/A');
-            $table->enum('estado',['Aprovado','Reprovado','Pedente'])->default('Pedente');
+            $table->string('Entidade')->nullable();
+            $table->string('contacto')->nullable();
+            $table->enum('estado',['Aprovado','Reprovado','Pendente'])->default('Pendente');
             $table->string('modelo')->nullable();
             $table->string('plataforma')->nullable();
             $table->string('uuid')->nullable();

@@ -18,7 +18,7 @@
                    <dd>{{Auth::User()->email}}</dd>
                    
                    <dt>Nivel</dt>
-                   <dd>{{Auth::User()->category}}</dd>
+                   <dd>{{Auth::User()->getCategory(Auth::User()->category)}}</dd>
                   </dl>
 
 

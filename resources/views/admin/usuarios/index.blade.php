@@ -29,9 +29,10 @@
                         <table class="table text-wrap table-hover table-striped" id="users">
                             <thead>
                                 <th>Nome</th>
-                                <th>Email</th>
-                                <th>Nivel</th>
-                                <th width="15%">Accão</th>
+                                <th>E-mail</th>
+                                <th>Tipo de Usuário</th>
+                                <th>Província</th>
+                                <th width="15%">Acção</th>
                             </thead>
 
                             <tbody>

@@ -11,7 +11,7 @@ use App\Models\Provincia;
 class Ocorrencia extends Model
 {
     protected $fillable= [
-    	'jornalista_id','provincia_id','nome','celular','descricao','nivel','latitude','longitude','provincia','img_URL','estado'
+    	'jornalista_id','provincia_id','nome','celular','descricao','nivel','latitude','longitude','provincia','imgURL','estado'
     ];
 
     protected $casts=[

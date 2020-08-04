@@ -22,9 +22,20 @@ class UserController extends Controller
     public function index(Request $request){
        
         if ($request->ajax()) {
-            $data = User::latest()->get();
+            $data = User::where('id','!=',Auth::User()->id)->latest();
             return Datatables::of($data)
                     ->addIndexColumn()
+                    ->addColumn('nivel', function($row){
+                       if($row->category==0)
+                        return 'Central';
+                       if($row->category>0 && $row->category<12)
+                        return 'Provincial';
+                       else
+                        return 'Jurista';
+                    })
+                    ->addColumn('provincia', function($row){
+                        return $row->getCategory($row->category);
+                    })
                     ->addColumn('action', function($row){
    
                            $btn = '<a href="javascript:void(0)" data-toggle="tooltip"  data-id="'.$row->id.'" data-original-title="Editar" class="editUser"><i class="far fa-edit"></i></a>';
@@ -33,8 +44,9 @@ class UserController extends Controller
     
                             return $btn;
                     })
-                    ->rawColumns(['action'])
+                    ->rawColumns(['action','nivel','provincia'])
                     ->make(true);
+                    
         }
 
         return view('admin.usuarios.index');

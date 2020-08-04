@@ -71,7 +71,7 @@ class User extends Authenticatable
             case '3': return 'Maputo Província'; break;
             case '4': return 'Inhambane'; break;
             case '5': return 'Manica'; break;
-            case '6': return 'Beirra'; break;
+            case '6': return 'Sofala'; break;
             case '7': return 'Tete'; break;
             case '8': return 'Zambézia'; break;
             case '9': return 'Nampula'; break;

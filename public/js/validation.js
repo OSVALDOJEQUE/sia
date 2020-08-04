@@ -73,7 +73,7 @@ $("#user_form").validate({
 
     	  $.ajax({
           data: $(form).serialize(),
-          url: "/users",
+          url: "users",
           type: "POST",
           dataType: 'json',
           success: function (data) {
@@ -170,7 +170,7 @@ $("#user_edit_form").validate({
 
     	  $.ajax({
           data: $(form).serialize(),
-          url: "/users",
+          url: "users",
           type: "POST",
           dataType: 'json',
           success: function (data) {
@@ -398,7 +398,136 @@ $("#user_edit_form").validate({
     },
 
   });
+
+ $("#ocorrencia_form").validate({
+      
+    rules: {
+
+     serie:{
+       required:true,
+     },
+     provincia:{
+       required:true,
+     },
+
+     nivel:{
+       required:true,
+     },
+   },
+         
+    messages: {
+
+      serie:{
+        required:"Este campo é obrigatório",
+      },
+
+      provincia:{
+        required:"Este campo é obrigatório",
+      },
+
+       nivel:{
+        required:"Este campo é obrigatório",
+      },
+    },
+
+  });
     
+
+
+$("#jornalista_form").validate({
+      
+    rules: {
+      nome: {
+        required: true,
+        maxlength:50,
+        minlength:3,
+      },
+
+      celular: {
+        required: true,
+        digits: true,
+      },
+  
+       email: {
+        required: true,
+        email: true,
+      },
+
+      contacto:{
+        required:true,
+        digits:true,
+        },
+        
+      entidade:{
+        required:true
+      }
+
+    },
+
+    messages: {
+        
+      nome: {
+        required: "Este campo é obrigatório",
+        maxlength: "O nome deve conter  no máximo 50 caracteres ",
+        minlength: "O nome deve conter  pelo menos 3 caracteres",
+      },
+
+      celular: {
+        required: "Este campo é obrigatório",
+        digits: "Introduza um número de telefone válido",
+      },
+   
+       email: {
+        required: "Este campo é obrigatório",
+        email: "Introduza um email valido",
+      },
+
+      contacto:{
+        required: "Este campo é obrigatório",
+        digits:"Introduza um número de telefone válido",
+
+        },
+      entidade:{
+        required:"Este campo é obrigatório"
+      }
+ 
+         
+    },
+
+    submitHandler: function(form){
+      $.ajaxSetup({
+          headers: {
+              'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+          }
+      });       
+
+        $.ajax({
+          data: $(form).serialize(),
+          url: "jornalistas/"+$("#id").val(),
+          type: "PUT",
+          dataType: 'json',
+          success: function (data) {
+
+              $(form).trigger("reset");
+              $('#editJornalista').modal('hide');
+              jornalistas.draw();
+             swal("Actualizado com sucesso", data.message, "success");
+         
+         
+          },
+          error: function (data) {  
+            console.log('error',data);
+              $('.alert-danger').html('');
+              $.each(data.responseJSON.errors, function(key, value) {
+                $('.alert-danger').show();
+                $('.alert-danger').append('<strong><li>'+value+'</li></strong>');
+              });
+          }
+      });
+
+    }
+
+  });
 
 //Confirmação do password
 

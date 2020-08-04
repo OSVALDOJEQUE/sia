@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-@section('title','Gestão de jornalista')
+@section('title','Gestão de Jornalistas')
 
 @section('titulo','Jornalistas')
 
@@ -29,15 +29,15 @@
                         <table class="table text-wrap table-hover table-striped" id="jornalistas">
                             <thead>
                                 <th>Nome</th>
-                                <th>Celular</th>
+                                <th>Telefone</th>
                                 <th>Email</th>
-                                <th>Estado</th>
+                                <th>Editor</th>
+                                <th>Entidade</th>
                                 <th>Dispositivo</th>
                                 <th>Plataforma</th>
-                                <th>UUID</th>
-                                <th>versão</th>
-                                <th>Serie</th>
-                                <th width="100px">Accão</th>
+                                <th>Série</th>
+                                <th>Estado</th>
+                                <th style="width: 150px;">Acção</th>
                             </thead>
                             <tbody>
                                

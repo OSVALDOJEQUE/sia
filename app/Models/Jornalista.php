@@ -8,7 +8,7 @@ use App\Models\Ocorrencia;
 class Jornalista extends Model
 {
     protected $fillable =[
-    	'estado'
+    	'nome','celular','email','estado','contacto','entidade'
     ];
 
     public function ocorrencias(){

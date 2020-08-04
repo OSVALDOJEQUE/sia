@@ -30,10 +30,12 @@ Route::get('/', function () {
    //Rotas de Ocorrencias
     Route::get('/ocorrencias/{id}/mostrar',['middleware'=>'auth','uses'=>'OcorrenciaController@show'])->name('ocorrencia.mostrar');
     Route::get('/ocorrencias/estatisticas',['middleware'=>'auth','uses'=>'OcorrenciaController@estatisticas'])->name('ocorrencia.estatisticas');
+    Route::post('ocorrencias','OcorrenciaController@store')->name('ocorrencia.store');
     Route::Delete('/ocorrencias/{id}','OcorrenciaController@destroy')->name('ocorrencia.remover');
-    Route::post('/partilharocorrência/{id}','OcorrenciaController@partilhar')->name('partilhar');
+    Route::post('/partilharocorrencia/{id}','OcorrenciaController@partilhar')->name('partilhar');
     Route::post('/alocarjurista/{id}','OcorrenciaController@alocar')->name('alocar');
     Route::post('/confirmarProvincia/{id}','OcorrenciaController@confirmarProvincia')->name('confirmarProvincia');
+    Route::post('/editar/{id}','OcorrenciaController@update')->name('ocorrencia.editar');
     Route::get('/mensagens/{id}', 'OcorrenciaController@conversa')->name('chat');
     Route::post('enviarmensagem/distrital/{id}', 'OcorrenciaController@enviarDistrital')->name('msg_distrital');
     Route::post('enviarmensagem/provinvial/{id}', 'OcorrenciaController@enviarProvincial')->name('msg_provincial');
@@ -65,4 +67,5 @@ Route::get('/', function () {
     Route::post('/senha/redefinir','AuthController@sendEmailToken')->name('sendEmailToken');
     Route::get('/redefinir/senha/{token}','AuthController@showpasswordREsetForm')->name('password.reset');
     Route::post('/redefinir/senha/{token}','AuthController@passwordREset')->name('passwordREset');
+    
 

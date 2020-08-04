@@ -2,7 +2,7 @@
 @section('title','Ocorrência Mostrar')
 
 @section('title','Ocorrência')
-@section('titulo','Ocorrência')
+@section('titulo','Detalhes da Ocorrência')
 
 @push('css')
   <style type="text/css">
@@ -76,10 +76,10 @@ element.style {
 
   @if(!$ocorrencia->provincia)
     <div class="alert alert-warning alert-dismissible fade show" role="alert">
-      <p>Para efeitos estatísticos, não se esqueça de confirmar a província da ocorrência, clicando
-        <a href="#" data-toggle="modal" data-target="#registarProvincia">aqui</a></p>
-      <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-        <span aria-hidden="true">&times;</span>
+      <p><i class="fas fa-exclamation-triangle"></i> Para efeitos estatísticos, não se esqueça de confirmar a província da ocorrência, clicando
+        <a href="#" data-toggle="modal" data-target="#registarProvincia" style="background-color: rgb(226, 226, 226);">aqui!</a></p>
+      <!--<button type="button" class="close" data-dismiss="alert" aria-label="Close">
+        <span aria-hidden="true">&times;</span>-->
       </button>
     </div>
   @endif
@@ -99,7 +99,13 @@ element.style {
               <td><label>Celular:</label> {{$ocorrencia->jornalista->celular}}</td>
             </tr>
             <tr>
-             <td><label>Nivel de risco:</label> {{$ocorrencia->nivel}}</td>
+             <td><label>Tipo de Violação:</label>
+               @if($violacao = $ocorrencia->nivel)
+                {{$violacao}}
+               @else
+                 Por preencher
+               @endif
+            </td>
             </tr>
 
           </table>
@@ -135,15 +141,20 @@ element.style {
     </div>          
     
     <div class="p-15">
-      <label>Evidencia:</label>
+        <label>Província:</label>
        @if(!$ocorrencia->provincia)
         Por confirmar
        @else
         {{$ocorrencia->provincia->provincia}}
        @endif
        <br>
-      
+       
+       
+   
+
+        <br>
       @if($ocorrencia->imgURL)
+       <label>Evidência:</label><br>
           <img style="max-width:500px;" src="data:image/jpeg;base64,{{$ocorrencia->imgURL}}">
        @endif 
     </div>
@@ -160,6 +171,12 @@ element.style {
 
     <div class="card-footer">
         @if(Auth::user()->category!=12)
+        
+         <a href="#"  data-toggle="modal" data-target="#editarOcorrencia"class="btn btn-secondary btn-sm"><i class="far fa-edit"></i>
+                    Editar
+        </a>
+        
+        
         <a href="#"  data-toggle="modal" data-target="#encaminhar" class="btn btn-secondary btn-sm"><i class="fas fa-share"></i>
                     Partilhar
         </a> 

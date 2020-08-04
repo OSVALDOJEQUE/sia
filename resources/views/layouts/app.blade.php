@@ -7,6 +7,8 @@
 <link rel="stylesheet" type="text/css" href="//fonts.googleapis.com/css?family=Oswald"/>
 <link rel="stylesheet" type="text/css" href="//fonts.googleapis.com/css?family=Roboto"/>
 
+<link rel="shortcut icon" href="{{{ asset('logo/logo-v.png') }}}">
+
 <!-- Estilo
 		============================================ -->
     <link rel="stylesheet" href="{{asset('css/estilo.css')}}">

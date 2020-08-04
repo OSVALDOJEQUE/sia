@@ -136,7 +136,7 @@ class ExportController extends Controller
           'assaltos_z','agressoes_z','censuras_z','detencoes_z','legislacoes_z','ameacas_z','violacoes_z',
           'assaltos_na','agressoes_na','censuras_na','detencoes_na','legislacoes_na','ameacas_na','violacoes_na',
           'assaltos_n','agressoes_n','censuras_n','detencoes_n','legislacoes_n','ameacas_n','violacoes_n',
-          'assaltos_c','agressoes_c','censuras_c','detencoes_c','legislacoes_c','ameacas_c','violacoes_c',
+          'assaltos_c','agressoes_c','censuras_c','detencoes_c','legislacoes_c','ameacas_c','violacoes_c'
         ))
                   ->stream(); 
     }

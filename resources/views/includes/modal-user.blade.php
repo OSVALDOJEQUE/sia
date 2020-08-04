@@ -28,7 +28,7 @@
                               </div>
                           </div>
                           <div class="form-group">
-                          <label>email</label>
+                          <label>E-mail</label>
                               <div class="form-single">
                                   <input type="email" name="email" id="email" value="{{old('email')}}" class="form-control" placeholder="Endereco Electronico" />
                                    <span class="error">{{ $errors->first('email') }}</span> 
@@ -61,7 +61,7 @@
                                     <option value="3">Gaza</option>
                                     <option value="4">Inhambane</option>
                                     <option value="5">Manica</option>
-                                    <option value="6">Beirra</option>
+                                    <option value="6">Sofala</option>
                                     <option value="7">Tete</option>
                                     <option value="8">Zambézia</option>
                                     <option value="9">Nampula</option>
@@ -122,7 +122,7 @@
                               </div>
                           </div>
                           <div class="form-group">
-                          <label>email</label>
+                          <label>E-mail</label>
                               <div class="form-single">
                                   <input type="email" name="email" id="e_email" value="{{old('e_email')}}" class="form-control" placeholder="Endereco Electronico" />
                                    <span class="error">{{ $errors->first('email') }}</span> 
@@ -154,7 +154,7 @@
                                     <option value="3">Gaza</option>
                                     <option value="4">Inhambane</option>
                                     <option value="5">Manica</option>
-                                    <option value="6">Beirra</option>
+                                    <option value="6">Sofala</option>
                                     <option value="7">Tete</option>
                                     <option value="8">Zambézia</option>
                                     <option value="9">Nampula</option>

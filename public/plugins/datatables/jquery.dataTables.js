@@ -11458,7 +11458,7 @@
 			 *      } );
 			 *    } );
 			 */
-			"sEmptyTable": "Sem dados disponiveis na tabela",
+			"sEmptyTable": "Sem registos disponíveis na tabela",
 	
 	
 			/**
@@ -11490,7 +11490,7 @@
 			 *      } );
 			 *    } );
 			 */
-			"sInfo": "_START_ - _END_ de _TOTAL_ Total ",
+			"sInfo": "_START_ - _END_ de _TOTAL_",
 	
 	
 			/**

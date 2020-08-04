@@ -37,7 +37,7 @@
                                     <option value="3">Gaza</option>
                                     <option value="4">Inhambane</option>
                                     <option value="5">Manica</option>
-                                    <option value="6">Beirra</option>
+                                    <option value="6">Sofala</option>
                                     <option value="7">Tete</option>
                                     <option value="8">Zambézia</option>
                                     <option value="9">Nampula</option>
@@ -140,8 +140,58 @@
                                 <option value="2">Maputo Província</option>
                                 <option value="3">Gaza</option>
                                 <option value="4">Inhambane</option>
-                                <option value="5"> Sofala</option>
-                                <option value="6"> Manica</option>
+                                <option value="5">Manica</option>
+                                <option value="6">Sofala</option>
+                                <option value="7">Tete</option>
+                                <option value="8">Nampula</option>
+                                <option value="9">Zambezia</option>
+                                <option value="10">Niassa</option>
+                                <option value="11">Cabo Delegado</option>
+
+                             </select>
+                              </div>
+                          </div>
+
+                    
+                          <div class="form-group">
+
+                            <button type="reset" class="btn btn-secondary btn-sm modelClose" data-dismiss="modal">Cancelar
+                             </button>
+                            <button type="submit" class="btn btn-secondary btn-sm" id="btn-save">Enviar</button>
+                         
+                           </div>
+                          </form>
+                      </div>
+                    </div>
+                </div>
+            </div>
+
+                        <div class="modal " id="editarOcorrencia" aria-hidden="true" >
+                <div class="modal-dialog modal-dialog-centered">
+                  <div class="modal-content">
+                  
+                    <!--  Cabecalho Modal -->
+                    <div class="modal-header">
+                      <h1>Editar Ocorrência</h1>
+                      <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    </div>
+                    
+                    <!-- Corpo Modal -->
+                    <div class="modal-body">
+                    
+                       <form id="ocorrencia_form" name="ocorrencia_form"  method="post" action="{{ route('ocorrencia.editar',$ocorrencia->id) }}">
+                           @csrf
+                          <div class="form-group">
+                              <label>Província</label>
+                              <div class="form-single ">
+                                  <select class="form-control" name="provincia" id="provincia" >
+                               <option  value="{{$ocorrencia->provincia->id ?? old('provincia')}}">{{$ocorrencia->provincia->provincia ?? 'Selecione a Província'}}</option>
+                                <option value="1">Maputo Cidade</option>
+                                <option value="2">Maputo Província</option>
+                                <option value="3">Gaza</option>
+                                <option value="4">Inhambane</option>
+                                <option value="5">Manica </option>
+                                <option value="6"> Sofala</option>
                                 <option value="7"> Tete</option>
                                 <option value="8"> Nampula</option>
                                 <option value="9"> Zambezia</option>
@@ -149,6 +199,27 @@
                                 <option value="11"> Cabo Delegado</option>
 
                              </select>
+                              </div>
+                          </div>
+                          <div class="form-group">
+                              <label>Tipo de violação</label>
+                              <div class="form-single ">
+                                  <select class="form-control" name="violacao" id="violacao" >
+                               <option  value="{{$ocorrencia->nivel ?? old('nivel')}}" >{{$ocorrencia->nivel ?? 'Selecione o tipo de violação'}}</option>
+                                <option value="Agressões físicas">Agressões físicas</option>
+                                <option value="Assaltos">Assaltos</option>
+                                <option value="Censuras">Censuras</option>
+                                <option value="Detenções">Detenções</option>
+                                <option value="Legislações">Legislações</option>
+                                <option value="Ameaças">Ameaças</option>
+                                <option value="Violações públicas da liberdade de expressão">Violações públicas da liberdade de expressão</option>
+                             </select>
+                              </div>
+                          </div>
+                          <div class="form-group">
+                              <label>Descrição</label>
+                              <div class="form-single ">
+                                 <textarea name="descricao" id="descricao" class="form-control"  placeholder="Descrição" value="{{$ocorrencia->descricao ?? old('descricao')}}">{{$ocorrencia->descricao}}</textarea>
                               </div>
                           </div>
 

@@ -28,20 +28,24 @@ class OcorrenciaController extends Controller
 {
         public function index(){
         if (Auth::user()->category==0){
-        $ocorrencias = Ocorrencia::orderBy('created_at', 'desc')->get();
+        $ocorrencias = Ocorrencia::latest()->get();
+        
+        $novasOcorrencias = Ocorrencia::where('estado','Nova')->orderBy('created_at', 'desc')->get();
 
-        $novasOcorrencias = Ocorrencia::where('estado','Nova')->orderBy('created_at', 'desc')->get();;
+        $seguimentoOcorrencias = Ocorrencia::where('estado','Em Seguimento')->orderBy('created_at', 'desc')->get();
 
-        $seguimentoOcorrencias = Ocorrencia::where('estado','Em Seguimento')->orderBy('created_at', 'desc')->get();;
-
-        $resolvidasOcorrencias = Ocorrencia::where('estado','Resolvida')->orderBy('created_at', 'desc')->get();;
+        $resolvidasOcorrencias = Ocorrencia::where('estado','Resolvida')->orderBy('created_at', 'desc')->get();
 
         $chatOcorrencias = DB::table('mensages')
                             ->join('ocorrencias', 'ocorrencias.id','=', 'mensages.ocorrencia_id')
                             ->select('mensages.id', 'mensages.emissor','mensages.conteudo','mensages.ocorrencia_id', 'mensages.created_at', 'ocorrencias.nome', 'ocorrencias.celular', 'ocorrencias.nivel')
                             ->latest('created_at')->get()->unique('ocorrencia_id');
-                           
-        return view('home' ,compact('ocorrencias','novasOcorrencias','seguimentoOcorrencias','resolvidasOcorrencias', 'chatOcorrencias'));
+
+        $jornalistas = DB::table('jornalistas')->select('nome','serie')->get();
+        $users    = DB::table('users')->select('id','name')->where('category',12)->get();
+     
+                         
+        return view('home' ,compact('ocorrencias','novasOcorrencias','seguimentoOcorrencias','resolvidasOcorrencias', 'chatOcorrencias','jornalistas','users'));
       }
 
       if (Auth::user()->category>=1 &&  Auth::user()->category<=11){
@@ -197,7 +201,7 @@ class OcorrenciaController extends Controller
           'assaltos_z','agressoes_z','censuras_z','detencoes_z','legislacoes_z','ameacas_z','violacoes_z',
           'assaltos_na','agressoes_na','censuras_na','detencoes_na','legislacoes_na','ameacas_na','violacoes_na',
           'assaltos_n','agressoes_n','censuras_n','detencoes_n','legislacoes_n','ameacas_n','violacoes_n',
-          'assaltos_c','agressoes_c','censuras_c','detencoes_c','legislacoes_c','ameacas_c','violacoes_c',
+          'assaltos_c','agressoes_c','censuras_c','detencoes_c','legislacoes_c','ameacas_c','violacoes_c'
 
         ));
     }
@@ -221,20 +225,28 @@ class OcorrenciaController extends Controller
     public function store(Request $request)
     { 
 
-         $jornalista = Jornalista::where('serie',$request->serie)->get();
+         $jornalista = Jornalista::where('serie',$request->serie)->first();
 
          $ocorrencia = $jornalista->ocorrencias()->create([
+            'nome'          =>$jornalista->nome,
+            'celular'       =>$jornalista->celular,
             'descricao'     =>$request->reason,
             'nivel'         =>$request->nivel,
             'imgURL'        =>$request->imageURL,
             'latitude'      =>$request->latitude,
             'longitude'     =>$request->longitude,
+            'provincia_id'  =>$request->provincia
          ]);
 
-         if ($ocorrencia){
-            $users =User::where('category',0);
+         if ($ocorrencia && $request->jurista)
+           User::find($request->jurista)->ocorrencias()->attach($ocorrencia->id);
+
+         if ($ocorrencia && $request->ajax()){
+            $users =User::where('category',0)->get();
             Notification::send($users, new Notificacao());
          }
+         else
+          return back()->with(['success'=>'Salvo com sucesso']);
     }
 
     /**
@@ -281,6 +293,18 @@ class OcorrenciaController extends Controller
         return back()->with(['success' => 'Marcado com sucesso']);
     }
 
+     public function registarViolacao(Request $request, $id)
+    {
+        if(!$ocorrencia = Ocorrencia::find($id))
+            return view('errors.404');
+
+        $ocorrencia->update([
+            'nivel' => $request->violacao
+        ]);
+
+        return redirect()->route('home')->with(['success' => 'Violação registada com sucesso']);
+    }
+
     /**
      * Show the form for editing the specified resource.
      *
@@ -292,7 +316,7 @@ class OcorrenciaController extends Controller
 
         foreach (Ocorrencia::find($id)->juristas as $jurista) {
             if($jurista->id == $request->jurista)
-              return back()->with(['success'=>'O Jurista não pode ser alocado duas vezes na mesma ocorrência']);
+              return back()->with(['warning'=>'O Jurista não pode ser alocado duas vezes na mesma ocorrência']);
 
         }
 
@@ -323,11 +347,12 @@ class OcorrenciaController extends Controller
     $ocorrencia  = Ocorrencia::find($id);
     $provincial_encaminhado = $ocorrencia->provincial_encaminhado;
 
-    foreach ($provincial_encaminhado as $encaminhado) {
-        if ($encaminhado['id'] == $request->permission)
-          return redirect()->route('home')->with(['warning' => 'Está ocorrência já foi partilhada para este nível']);
-    }
-
+    if($provincial_encaminhado)
+      foreach ($provincial_encaminhado as $encaminhado) {
+          if ($encaminhado['id'] == $request->permission)
+            return redirect()->route('home')->with(['warning' => 'Está ocorrência já foi partilhada para este nível']);
+      }
+    
     $mensagem = new Mensage();
 
     $mensagem->ocorrencia_id = $id;
@@ -341,7 +366,7 @@ class OcorrenciaController extends Controller
       $ocorrencia->provincial_encaminhado = $encaminhado;
       $ocorrencia->estado ='Em Seguimento';
 
-    if($ocorrencia->save())
+    if($ocorrencia->update())
       $notificacao = Notification::send(User::where('category',$request->permission)->get(), new Notificacao());
       return redirect()->route('home')->with(['success' => 'Encaminhado com sucesso']);
     }
@@ -383,11 +408,11 @@ class OcorrenciaController extends Controller
 
       $ocorrencia = Ocorrencia::find($id);
 
-      if($ocorrencia->juristas->isEmpty(5))
-           return redirect()->back()->with('warning', 'Jurista não alocado');
+      if($ocorrencia->juristas->isEmpty())
+           return redirect()->back()->with('warning', 'Erro! Antes de enviar a mensagem, por favor, seleccione a ocorrência e, a seguir clique no botão "Alocar Jurista".');
     
 
-      foreach ($juristas as $jurista) {
+      foreach ($ocorrencia->juristas as $jurista) {
           $mensagem = new Mensage();
           $mensagem->ocorrencia_id = $id;
           $mensagem->conteudo=$request->content;
@@ -405,7 +430,7 @@ class OcorrenciaController extends Controller
 
         $ocorrencia = Ocorrencia::find($id);
          if(!$ocorrencia->provincial_encaminhado)
-           return redirect()->back()->with('warning', 'Nível provincial não especificado');
+           return redirect()->back()->with('warning', 'Erro! Antes de enviar a mensagem, por favor, seleccione a ocorrência e, a seguir clique no botão "Partilhar".');
 
          foreach ($ocorrencia->provincial_encaminhado as $encaminhado) {
           $mensagem = new Mensage();
@@ -449,4 +474,19 @@ class OcorrenciaController extends Controller
       $ocorrencia->delete();
       return response()->json(['success' => 'Removido com sucesso']);
     }
+    
+    public function update(Request $request, $id)
+    {
+        if(!$ocorrencia = Ocorrencia::find($id))
+            return view('errors.404');
+
+        $ocorrencia->update([
+            'nivel'       => $request->violacao,
+            'descricao'   => $request->descricao,
+            'provincia_id'=>$request->provincia
+        ]);
+
+        return back()->with(['success' => 'Ocorrencia actualizada com sucesso']);
+    }
+
 }

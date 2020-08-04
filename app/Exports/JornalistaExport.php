@@ -24,7 +24,7 @@ class JornalistaExport implements FromCollection,WithHeadings,WithEvents
             // Handle by a closure.
             AfterSheet::class => function(AfterSheet $event) use ($arrayStyle) {
 
-                $event->sheet->getStyle('A1:G1')->applyFromArray($arrayStyle);
+                $event->sheet->getStyle('A1:J1')->applyFromArray($arrayStyle);
             },
         ];
     }
@@ -33,13 +33,13 @@ class JornalistaExport implements FromCollection,WithHeadings,WithEvents
     */
     public function collection()
     {
-        return Jornalista::select('id','nome','celular','estado')->get();
+        return Jornalista::select('id','nome','celular','email','contacto','entidade','modelo','plataforma','serie','estado')->get();
     }
 
        public function headings(): array
     {
         return [
-            '#','Nome','celular','Estado',
+            '#','Nome','Telefone','Email','Telefone do Editor','Entidade','Dispositivo','Plataforma','Serie','Estado'
         ];
     }
 }

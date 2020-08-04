@@ -20,17 +20,17 @@
             
               <div class="row" >
                 <div class="col-sm-3">
-                    <div class="input-group-sm">
-                        <select name="ano" id="ano" class="form-control">
-                          <option selected value="-1">Selecione o Ano</option>
-                          <option >{{date('Y')}}</option>
-                        </select>
-                    </div>
+                    <!--<div class="input-group-sm">-->
+                    <!--    <select name="ano" id="ano" class="form-control">-->
+                    <!--      <option selected value="-1">Selecione o Ano</option>-->
+                    <!--      <option >{{date('Y')}}</option>-->
+                    <!--    </select>-->
+                    <!--</div>-->
                 </div>
                <div class="col-sm-9">
                   
                     <div style="float: right;">
-                    <a style="float:right;" href="{{route('estatistica.imprimir')}}" class="btn btn-secondary btn-sm" title="Exportar para PDF">Exportar para PDF</a>
+                    <a style="float:right;" href="{{route('ocorrencia.exportar')}}" class="btn btn-secondary btn-sm" title="Exportar para EXCEL">Exportar para EXCEL</a>
                   </div>
 
                 </div>
@@ -46,7 +46,7 @@
                <th>Gaza</th>
                <th>Inhambane</th>
                <th>Manica</th>
-               <th>Beirra</th>
+               <th>Sofala</th>
                <th>Tete</th>
                <th>Zambézia</th>
                <th>Nampula</th>

@@ -17,7 +17,7 @@ function removerConfirmar(id) {
 
                 $.ajax({
                     type: 'DELETE',
-                    url: '/ocorrencias/'+id,
+                    url: 'ocorrencias/'+id,
                     data: {_token: CSRF_TOKEN},
                     dataType: 'JSON',
                     success: function (data) { 
@@ -58,7 +58,8 @@ function removerConfirmar(id) {
         columns: [
             {data: 'name', name: 'name'},
             {data: 'email', name: 'email'},
-            {data: 'category', name: 'category'},
+            {data: 'nivel', name: 'nivel'},
+            {data: 'provincia', name: 'provincia'},
             {data: 'action', name: 'action', orderable: false, searchable: false},
         ]
     });
@@ -102,7 +103,7 @@ function removerConfirmar(id) {
 
                 $.ajax({
                     type: 'DELETE',
-                    url:  "/users/"+user_id,
+                    url:  "users/"+user_id,
                     data: {_token: CSRF_TOKEN},
                     dataType: 'JSON',
                     success: function (data) {
@@ -131,7 +132,7 @@ function removerConfirmar(id) {
     });
 
 
-        var jornalistas= $('#jornalistas').DataTable({
+        var jornalistas = $('#jornalistas').DataTable({
         processing: false,
         serverSide: true,
         ajax: "jornalistas",
@@ -140,15 +141,29 @@ function removerConfirmar(id) {
             {data: 'nome', name: 'nome'},
             {data: 'celular', name: 'celular'},
             {data: 'email', name: 'email'},
-            {data: 'estado', name:'estado'},
+            {data: 'contacto', name: 'contacto'},
+            {data: 'entidade', name: 'entidade'},
             {data: 'modelo', name:'modelo'},
             {data: 'plataforma', name:'plataforma'},
-            {data: 'uuid', name:'uuid'},
-            {data: 'versao', name:'versao'},
             {data: 'serie', name:'serie'},
+            {data: 'estado', name:'estado'},
             {data: 'action', name: 'action', orderable: false, searchable: false},
         ]
     });
+
+    $('body').on('click', '.editJornalista', function () {
+      var user_id = $(this).data('id');
+      $.get("jornalistas/"+user_id +'/edit', function (data) {
+          $('#editJornalista').modal('show');
+          $('#id').val(data.id);
+          $('#nome').val(data.nome);
+          $('#celular').val(data.celular);
+          $('#email').val(data.email);
+          $('#contacto').val(data.contacto);
+          $('#entidade').val(data.entidade);
+      })
+   });
+    
 
 
       $('body').on('click', '.aprovar', function () {
@@ -156,7 +171,7 @@ function removerConfirmar(id) {
        
        $.ajax({
                     type: 'PUT',
-                    url:  "/jornalistas/"+jornalista_id,
+                    url:  "jornalistas/"+jornalista_id,
                     dataType: 'JSON',
                     success: function (data) {
                          jornalistas.draw();
@@ -187,7 +202,7 @@ function removerConfirmar(id) {
 
                 $.ajax({
                     type: 'DELETE',
-                    url:  "/jornalistas/"+jornalista_id,
+                    url:  "jornalistas/"+jornalista_id,
                     data: {_token: CSRF_TOKEN},
                     dataType: 'JSON',
                     success: function (data) {
